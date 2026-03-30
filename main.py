@@ -6,11 +6,8 @@ import requests
 app = FastAPI()
 
 HF_TOKEN= os.environ.get("HF_TOKEN")
-API_URL = "https://api-inference.huggingface.co/models/j-hartmann/emotion-english-distilroberta-base"
+API_URL = "https://router.huggingface.co/hf-inference/models/j-hartmann/emotion-english-distilroberta-base"
 
-
-class TextInput(BaseModel):
-    text:str
 
 @app.post("/analyze")
 def analyze(input:TextInput):
