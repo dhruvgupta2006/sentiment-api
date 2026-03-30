@@ -9,6 +9,11 @@ HF_TOKEN= os.environ.get("HF_TOKEN")
 API_URL = "https://router.huggingface.co/hf-inference/models/j-hartmann/emotion-english-distilroberta-base"
 
 
+class TextInput(BaseModel):
+    text: str
+
+
+
 @app.post("/analyze")
 def analyze(input:TextInput):
     headers = {"authorization": f"Bearer {HF_TOKEN}"}
