@@ -1,19 +1,20 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from transformers import pipeline
+import os
+import requests
 
-sentiment_model = pipeline("text-classification", model="j-hartmann/emotion-english-distilroberta-base",device=-1,torch_dtype="auto")
+HF_TOKEN= os.environ.get("HF_TOKEN")
+API_URL = "https://api-inference.huggingface.co/models/j-hartmann/emotion-english-distilroberta-base"
 
-
-app = FastAPI()
 
 class TextInput(BaseModel):
     text:str
 
 @app.post("/analyze")
 def analyze(input:TextInput):
-    result = sentiment_model(input.text)
-    return {"message":result}
+    headers = {"authorization": f"Bearer {HF_TOKEN}"}
+    response = requests.post(API_URL, headers=headers, json={"inputs": input.text})
+    return {"message": response.json()}
 
 
 
