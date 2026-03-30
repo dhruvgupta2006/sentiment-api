@@ -3,6 +3,8 @@ from pydantic import BaseModel
 import os
 import requests
 
+app = FastAPI()
+
 HF_TOKEN= os.environ.get("HF_TOKEN")
 API_URL = "https://api-inference.huggingface.co/models/j-hartmann/emotion-english-distilroberta-base"
 
